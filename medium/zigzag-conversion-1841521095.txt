@@ -1,0 +1,30 @@
+class Solution {
+    public String convert(String s, int numRows) {
+
+        if(s == null || s.length() <= numRows || numRows == 1){
+            return s;
+        }
+
+        StringBuilder[] rows = new StringBuilder[numRows];
+        for(int i = 0; i < numRows; i++){
+            rows[i] = new StringBuilder();
+        }
+
+        boolean down = false;
+        int curr = 0;
+
+        for(char ch : s.toCharArray()){
+            rows[curr].append(ch);
+            if (curr == numRows - 1|| curr == 0){
+                down = !down; 
+             } 
+            curr += down == true?1 : -1;  
+        }
+        
+        StringBuilder res = new StringBuilder();
+        for(StringBuilder row : rows){
+            res.append(row);
+        }
+        return res.toString();
+    }
+}
