@@ -1,0 +1,29 @@
+class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int[] candies = new int[n];
+
+        for(int k = 0; k < n; k++){
+            candies[k] = 1;
+        }
+        //left traversal
+        for(int i = 1; i < n; i++){
+            if(ratings[i] > ratings[i-1]){
+                candies[i] = candies[i-1] + 1;
+            }
+        }
+
+        //right traversal
+        for(int j = n -2 ;j >= 0;j--){
+            if(ratings[j] > ratings[j+1]){
+                candies[j] = Math.max(candies[j], candies[j+1] + 1);
+            }
+        }
+        int total = 0;
+        for(int c : candies){
+            total += c;
+        }
+
+        return total;
+    }
+}
