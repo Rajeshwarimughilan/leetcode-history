@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        boolean[][] rows = new boolean[9][9];
+        boolean[][] cols = new boolean[9][9];
+        boolean[][] boxindex = new boolean[9][9];
+
+        for(int r = 0; r < 9; r++){
+            for(int c = 0; c < 9; c++){
+                char ch = board[r][c];
+                int num = ch - '1';
+                int inx = (r/3)*3 + (c/3);
+                if (ch == '.') continue;
+                if(rows[r][num] || cols[c][num] || boxindex[inx][num]) return false;
+                rows[r][num] = true;
+                cols[c][num] = true;
+                boxindex[inx][num] = true;
+            }
+        }
+        return true;
+    }
+}
