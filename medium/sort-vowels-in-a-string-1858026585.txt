@@ -1,0 +1,26 @@
+class Solution {
+    public String sortVowels(String s) {
+        List<Character> store = new ArrayList<>();
+        String vowelset = "aeiouAEIOU";
+        StringBuilder res = new StringBuilder();
+
+        for(char ch: s.toCharArray()){
+            if(vowelset.indexOf(ch) != -1){
+                store.add(ch);
+            }
+        }
+
+        Collections.sort(store);
+        int v = 0;  //to reverse initialise it to store.size() - 1
+
+        for(char c: s.toCharArray()){
+            if(vowelset.indexOf(c) != -1){
+                res.append(store.get(v++));
+            }
+            else{
+                res.append(c);
+            }
+        }
+        return res.toString();
+    }
+}
