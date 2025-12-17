@@ -1,0 +1,15 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+
+        for(int n: nums){
+            int i = Collections.binarySearch(res, n);
+            if(i < 0){
+                i = -i-1;
+            }
+            if(i == res.size()) res.add(n);
+            else res.set(i, n);
+        }
+        return res.size();
+    }
+}
