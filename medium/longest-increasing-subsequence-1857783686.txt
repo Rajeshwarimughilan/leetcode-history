@@ -1,0 +1,14 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        List<Integer> present = new ArrayList<>();
+        for(int x: nums){
+            int i = Collections.binarySearch(present, x);
+            if(i < 0){
+                i = -i-1;
+            }
+            if(i == present.size()) present.add(x);
+            else present.set(i, x);
+        }
+        return present.size();
+    }
+}
