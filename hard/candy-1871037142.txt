@@ -1,0 +1,22 @@
+class Solution {
+    public int candy(int[] ratings) {
+        int total = 0;
+        int n = ratings.length;
+        int[] res = new int[n];
+        for(int i = 0; i < n; i++){
+            res[i] = 1;
+        }
+        for(int j = 1; j < n; j++){
+            if(ratings[j] > ratings[j-1]) res[j] = res[j-1] + 1;
+        }
+
+        for(int k = n-2; k >= 0; k--){
+            if(ratings[k] > ratings[k+1]) res[k] = Math.max(res[k],res[k+1] + 1);
+        }
+
+        for(int l = 0; l < n; l++){
+            total += res[l];
+        }
+        return total;
+    }
+}
