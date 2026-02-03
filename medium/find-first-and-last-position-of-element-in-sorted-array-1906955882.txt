@@ -1,0 +1,26 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int start = binarysearch(nums, target, true);
+        int end = binarysearch(nums, target, false);
+        return new int[]{start, end};
+    }
+
+    public static int binarysearch(int[] nums, int target, boolean isnotfirst){
+        int ans = -1;
+        int start = 0; int end = nums.length - 1;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] == target){
+                ans = mid;
+                if(isnotfirst){
+                    end = mid - 1;
+                }else{
+                    start = mid + 1;
+                }
+            }
+            else if(nums[mid] > target) end = mid - 1;
+            else start = mid + 1;
+        }
+        return ans;
+    }
+}
