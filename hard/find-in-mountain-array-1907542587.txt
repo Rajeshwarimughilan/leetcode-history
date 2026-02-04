@@ -1,0 +1,53 @@
+/**
+ * // This is MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface MountainArray {
+ *     public int get(int index) {}
+ *     public int length() {}
+ * }
+ */
+ 
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int peak = findpeak(mountainArr);
+        int res = agnosticbinarysearch(mountainArr,target, 0, peak);
+        if(res != -1){
+            return res; 
+        }else{
+            return agnosticbinarysearch(mountainArr,target, peak + 1, mountainArr.length() - 1);
+        }
+    }
+
+    public static int findpeak(MountainArray arr){
+        int low = 0, high = arr.length() - 1;
+        while(low < high){
+            int mid = low + (high - low)/2;
+            if(arr.get(mid) > arr.get(mid + 1)) high = mid;
+            else low = mid + 1;
+        }
+        return low;
+    }
+
+    public static int agnosticbinarysearch(MountainArray arr, int target, int start, int end){
+        boolean isasc = true;
+        if(arr.get(end) < arr.get(start)) isasc = false;
+
+        if(isasc){
+            while(start <= end){
+                int mid = start + (end - start)/2;
+                if(arr.get(mid) == target) return mid;
+                else if(arr.get(mid) > target) end = mid - 1;
+                else start = mid + 1;
+            }
+            return -1;
+        }else{
+             while(start <= end){
+                int mid = start + (end - start)/2;
+                if(arr.get(mid) == target) return mid;
+                else if(arr.get(mid) < target) end = mid - 1;
+                else start = mid + 1;
+            }
+            return -1;
+        } 
+    }
+}
