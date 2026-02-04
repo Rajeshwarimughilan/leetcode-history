@@ -1,0 +1,38 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int peak = findpeak(nums);
+        if(peak == -1){
+            return binarysearch(nums, target, 0, nums.length - 1);
+        }
+        else{
+            if(nums[peak] == target) return peak;
+            else if(nums[0] <= target){
+                return binarysearch(nums, target, 0, peak - 1);
+            }else{
+                return binarysearch(nums, target, peak + 1, nums.length - 1);
+            }
+        }
+    }
+
+    public static int findpeak(int[] nums){
+        int low = 0; int high = nums.length - 1;
+        while(low <= high){
+            int mid = low + (high - low)/2;
+            if(mid < high && nums[mid] > nums[mid + 1]) return mid;
+            else if(mid > low && nums[mid] < nums[mid - 1]) return mid - 1;
+            else if(nums[mid] < nums[0]) high = mid - 1;
+            else low = mid + 1; 
+        }
+        return -1;
+    }
+
+    public static int binarysearch(int[] nums, int target, int s, int e){
+        while(s <= e){
+            int m = s + (e-s)/2;
+            if(nums[m] == target) return m;
+            else if(nums[m] > target) e = m - 1;
+            else s = m + 1;
+        }
+        return -1;
+    }
+}
