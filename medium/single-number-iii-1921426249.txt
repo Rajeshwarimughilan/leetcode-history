@@ -1,0 +1,21 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        int xor = 0;
+        for(int n : nums){
+            xor ^= n;
+        }
+
+        int diff = xor & (-xor);
+        int a = 0, b = 0;
+        for(int i : nums){
+            if((i & diff) == 0) a ^= i;
+            else b ^= i;
+        }
+
+        return new int[]{a, b};
+    }
+}
+
+// First XOR cancels duplicates.
+// The rightmost set bit distinguishes the two unique numbers.
+// We partition the array using that bit and XOR each group to recover the two numbers.
