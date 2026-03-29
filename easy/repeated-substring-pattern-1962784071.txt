@@ -1,0 +1,17 @@
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        boolean match = false;
+        for(int i = 1;i <= s.length()/2; i++){
+            if(s.length() % i == 0){
+                match = true;
+                for(int j = i; j < s.length(); j += i){
+                    if(!s.substring(0, i).equals(s.substring(j, j+i))){
+                        match = false;
+                    }
+                }
+                if(match) return true;
+            }
+        }
+        return false;
+    }
+}
