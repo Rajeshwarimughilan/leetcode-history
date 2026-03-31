@@ -1,0 +1,24 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        for(int r = 0; r < grid.length; r++){
+            for(int c = 0; c < grid[0].length; c++){
+                if(grid[r][c] == '1'){
+                    count++;
+                    findisland(r, c, grid);
+                }
+            }
+        }
+        return count;
+    }
+
+    static void findisland(int r, int c, char[][] grid){
+        if(r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] == '0') return;
+        grid[r][c] = '0';
+        findisland(r + 1, c, grid);
+        findisland(r, c + 1, grid);
+        findisland(r - 1, c, grid);
+        findisland(r, c - 1, grid);
+        
+    }
+}
