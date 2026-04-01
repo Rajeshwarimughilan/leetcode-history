@@ -1,0 +1,43 @@
+// Expand window (right) to include chars and reduce required count
+// When all chars matched (count == 0), shrink window (left) to minimize size
+// Update min window; restoring a char (freq++) may break validity → count++
+
+class Solution {
+    public String minWindow(String s, String t) {
+        int[] freq = new int[128];
+        for(int x : t.toCharArray()){
+            freq[x]++;
+        }
+
+        int right = 0; int left = 0;
+        int start = 0;
+        int count = t.length();
+        int minlen = Integer.MAX_VALUE;
+
+
+        while(right < s.length()){
+            char ch = s.charAt(right);
+            if(freq[ch] > 0){
+                count--;
+            }
+            freq[ch]--;
+            right++;
+
+            while(count == 0){
+                if(right - left < minlen){
+                    minlen = right - left;
+                    start = left;
+                }
+                char leftch = s.charAt(left);
+                freq[leftch]++;
+                if(freq[leftch] > 0){
+                    count++;
+                }
+                
+                left++;
+            }
+        }
+
+        return (minlen == Integer.MAX_VALUE)? "": s.substring(start , start + minlen); 
+    }
+}
