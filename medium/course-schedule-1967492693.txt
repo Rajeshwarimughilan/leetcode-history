@@ -1,0 +1,36 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+
+        int[] visited = new int[numCourses];
+
+        for(int i = 0; i < numCourses; i++){
+            graph.add(new ArrayList<>());
+        }
+
+        for(int[] p : prerequisites){
+            graph.get(p[1]).add(p[0]);
+        }
+
+        for(int j = 0; j < numCourses; j++){
+            if(dfs(j, graph, visited)) return false;
+        }
+        return true;
+    }
+
+    static boolean dfs(int node, ArrayList<ArrayList<Integer>> graph, int[] visited){
+        if(visited[node] == 1) return true;//1 indicates visiting phase
+
+        if(visited[node] == 2) return false;//2 indicated visited phase
+
+        //0 indicated yet to visit phase
+
+        visited[node] = 1;
+        for(int n : graph.get(node)){
+            if(dfs(n, graph, visited)) return true;
+        }
+
+        visited[node] = 2;
+        return false;
+    }
+}
