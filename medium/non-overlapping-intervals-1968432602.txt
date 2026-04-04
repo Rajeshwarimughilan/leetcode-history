@@ -1,0 +1,23 @@
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals , (a,b) -> a[1] - b[1]);
+
+        //a[0] (start)	merging intervals
+        //a[1] (end)	greedy selection (max non-overlap)
+        
+        int end = intervals[0][1];
+        int count = 0;
+
+        for(int i = 1; i < intervals.length; i++){
+            int[] next = intervals[i];
+            if(end > next[0]){
+                count++;
+            }
+            else{
+                end = next[1];
+            }
+        }
+        return count;
+
+    }
+}
