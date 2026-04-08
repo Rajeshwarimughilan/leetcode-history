@@ -1,0 +1,29 @@
+class Solution {
+    public boolean splitArraySameAverage(int[] nums) {
+        int total = 0;
+        for(int x : nums) total += x;
+        int n = nums.length;
+
+        List<Set<Integer>> possum = new ArrayList<>();
+        for(int i = 0; i <= n/2; i++){
+            possum.add(new HashSet<>());
+        }
+        possum.get(0).add(0);//imp initialization
+
+        for(int num : nums){
+            for(int j = n/2; j >= 1; j--){
+                for(int prev : possum.get(j-1)){
+                    possum.get(j).add(prev + num);
+                }
+            }
+        }
+
+        for(int k = 1; k <= n/2; k++){
+            if((total * k) % n == 0){
+                int target = (total * k) / n;
+                if(possum.get(k).contains(target)) return true;
+            }
+        }
+        return false;
+    }
+}
