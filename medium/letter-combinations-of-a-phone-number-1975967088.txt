@@ -1,0 +1,24 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        return subseq("", digits);
+    }
+
+    static ArrayList<String> subseq(String p, String up){
+        if(up.isEmpty()){
+            ArrayList<String> list = new ArrayList<>();
+            list.add(p);
+            return list;
+        }
+
+        String[] map = {
+            "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        int digit = (int)up.charAt(0) - '0';
+        ArrayList<String> list = new ArrayList<>();
+
+        for(char ch : map[digit].toCharArray()){
+            list.addAll(subseq(p + ch, up.substring(1)));
+        }
+
+        return list;
+    }
+}
