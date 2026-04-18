@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+ //cousing if not sibling, same level, and is present in tree
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null)  return false;
+        TreeNode xx = findNode(root,x);
+        TreeNode yy = findNode(root,y);
+        return !issibling(root, xx, yy) && level(root, xx, 0) == level(root, yy, 0);
+    }
+
+    static boolean issibling(TreeNode node, TreeNode x, TreeNode y){
+        if(node == null) return false;
+        if(node.left == x && node.right == y || node.left == y && node.right == x) return true;
+        return issibling(node.left, x, y) || issibling(node.right, x, y);
+    }
+
+    static TreeNode findNode(TreeNode node, int val){
+        if(node == null) return null;
+        if(node.val == val) return node;
+        TreeNode left = findNode(node.left, val);
+        if(left != null) return left;
+        return findNode(node.right, val);
+    }
+
+    static int level(TreeNode node, TreeNode x, int lvl){
+        if(node == null) return 0;
+        if(node == x) return lvl;
+        int left = level(node.left, x, lvl + 1);
+        if(left != 0) return left;
+        return level(node.right, x, lvl + 1);
+    }
+}
