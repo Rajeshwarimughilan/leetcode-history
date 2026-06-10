@@ -16,7 +16,6 @@
 class Solution {
     int preidx = 0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        
         TreeNode root = construct(preorder, inorder, 0, preorder.length - 1);
         return root;
     }
@@ -25,15 +24,10 @@ class Solution {
         if(start > end) return null;
         TreeNode root = new TreeNode(po[preidx++]);
         int idx = start;
-        while(idx <= end && io[idx] != root.val){
-            idx++;
-        }
-
+        while( idx <= end && io[idx] != root.val) idx++;
         root.left = construct(po, io, start, idx - 1);
         root.right = construct(po, io, idx + 1, end);
-
         return root;
-
 
     }
 }
