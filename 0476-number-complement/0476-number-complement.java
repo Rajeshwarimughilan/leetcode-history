@@ -12,9 +12,6 @@ class Solution {
             if(b == '0'){
                 res += 1 * Math.pow(2, idx);
             }
-            else{
-                res += 0 * Math.pow(2, idx);
-            }
             idx--;
         }
         return res;
