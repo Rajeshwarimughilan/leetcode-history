@@ -1,11 +1,7 @@
 class Solution {
     public int findComplement(int num) {
-        StringBuilder sb = new StringBuilder();
-        while(num > 0){
-            sb.append(num % 2);
-            num /= 2;
-        }
-        String bin = sb.reverse().toString();
+        String bin = Integer.toBinaryString(num);
+        // String binaryStr = Integer.toString(number, 2);
         int idx = bin.length() - 1;
         int res = 0;
         for(char b : bin.toCharArray()){
