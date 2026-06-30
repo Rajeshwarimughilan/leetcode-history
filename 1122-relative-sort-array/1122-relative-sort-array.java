@@ -13,8 +13,16 @@ class Solution {
             }
         }
         
-        Arrays.sort(arr1, idx, arr1.length);
-
+        for(int i = idx; i < arr1.length - 1; i++){
+            for(int j= idx; j < arr1.length - 1 - i + idx; j++){
+                if(arr1[j] > arr1[j+1]){
+                    int t = arr1[j];
+                    arr1[j] = arr1[j+1];
+                    arr1[j+1] = t;
+                }
+            }
+        }
         return arr1;
     }
+
 }
