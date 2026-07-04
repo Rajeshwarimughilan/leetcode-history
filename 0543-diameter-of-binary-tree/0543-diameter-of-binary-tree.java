@@ -23,13 +23,13 @@ class Solution {
     public int heights(TreeNode root){
 
         if(root == null){
-            return -1;
+            return 0;
         }
 
         int left = heights(root.left);
         int right = heights(root.right);
 
-        diameter = Math.max(diameter, left + right + 2);
+        diameter = Math.max(diameter, left + right);
 
         return 1 + Math.max(left , right);
     }
