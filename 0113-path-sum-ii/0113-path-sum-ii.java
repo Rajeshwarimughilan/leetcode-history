@@ -16,25 +16,22 @@
 class Solution {
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        check(root, targetSum, 0, new ArrayList<>());
+        compute(root, targetSum, 0, new ArrayList<>());
         return res;
     }
 
-    public void check(TreeNode root, int targetsum, int sum, List<Integer> curr){
-        if(root == null)
-            return;
-
+    public void compute(TreeNode root, int target, int sum, List<Integer> curr){
+        if(root == null) return;
         sum += root.val;
         curr.add(root.val);
-
-        if(root.left == null && root.right == null && sum == targetsum){
-            res.add(new ArrayList(curr));
+        if(root.left == null && root.right == null && sum == target){
+            res.add(new ArrayList<>(curr));
         }
+        
+        compute(root.left, target, sum, curr);
+        compute(root.right, target, sum, curr);
 
-        check(root.left, targetsum, sum, curr);
-        check(root.right, targetsum, sum, curr);
         curr.remove(curr.size() - 1);
         return;
-
     }
 }
