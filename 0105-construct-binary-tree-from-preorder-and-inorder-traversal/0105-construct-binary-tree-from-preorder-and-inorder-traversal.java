@@ -20,14 +20,16 @@ class Solution {
         return root;
     }
 
-    public TreeNode construct(int[] po, int[] io, int start, int end){
-        if(start > end) return null;
-        TreeNode root = new TreeNode(po[preidx++]);
-        int idx = start;
-        while( idx <= end && io[idx] != root.val) idx++;
-        root.left = construct(po, io, start, idx - 1);
-        root.right = construct(po, io, idx + 1, end);
-        return root;
+    public TreeNode construct(int[] po, int[] io, int s, int e){
+        while(s > e) return null;
 
+        TreeNode root = new TreeNode(po[preidx++]);
+
+        int idx = s;
+        while(io[idx] != root.val) idx++;
+        root.left = construct(po, io, s, idx - 1);
+        root.right = construct(po, io, idx + 1, e);
+
+        return root;
     }
 }
