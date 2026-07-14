@@ -1,27 +1,30 @@
 class Solution {
     public boolean lemonadeChange(int[] bills) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int five = 0; int ten = 0;
 
         for(int i = 0; i < bills.length; i++){
             if(i == 0 && bills[i] != 5) return false;
 
-            map.put(bills[i] , map.getOrDefault(bills[i], 0) + 1);
+            if(bills[i] == 5) five++;
+            else if(bills[i] == 10) ten++;
+            
 
             if(bills[i] == 5) continue;
+
             else if(bills[i] == 10){
-                if(map.getOrDefault(5, 0) < 1) return false;
+                if(five < 1) return false;
                 else{
-                    map.put(5, map.get(5) - 1);
+                    five--;
                 }
             }
             else{
-                if(map.getOrDefault(5, 0) > 0 && map.getOrDefault(10, 0) > 0){
-                    map.put(5, map.get(5) - 1);
-                    map.put(10, map.get(10) - 1);
+                if(five > 0 && ten > 0){
+                    five--;
+                    ten--;
                 }
 
-                else if(map.getOrDefault(5, 0) >= 3){
-                    map.put(5, map.get(5) - 3);
+                else if(five >= 3){
+                    five -= 3;;
                 }
                 else{
                     return false;
